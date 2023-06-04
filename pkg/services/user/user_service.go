@@ -32,4 +32,3 @@ func Create(user model.User) (model.User, error) {
 		return userrepository.Create(user)
 	})
 }
-
