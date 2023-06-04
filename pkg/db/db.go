@@ -13,9 +13,12 @@ import (
 
 var DB *gorm.DB
 
-func GetDbConnection(context string) *gorm.DB {
-
+func init() {
 	godotenv.Load()
+	InitiateDbConnection("INIT DB PROVIDER", "INIT DB PROVIDER")
+}
+
+func GetDbConnection(context string) *gorm.DB {
 
 	if DB != nil {
 		fmt.Println("DB Conn already exists", context)
@@ -29,7 +32,9 @@ func GetDbConnection(context string) *gorm.DB {
 }
 
 func InitiateDbConnection(context string, parentcontext string) *gorm.DB {
+
 	fmt.Println("Initiating new db conn", context, parentcontext)
+
 	dsn := fmt.Sprintf(
 		"host=%s port=%s dbname=%s user=%s password=%s sslmode=disable TimeZone=%s",
 		os.Getenv("DATABASE_HOST"),

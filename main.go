@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"ketemuditengah/hello/pkg/api/http/handler/v1/userhandler"
-	"ketemuditengah/hello/pkg/db"
 	"log"
 	"os"
 
@@ -26,14 +25,13 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 }
 
 func init() {
-	db.InitiateDbConnection("MAIN", "MAIN")
-}
-func main() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+}
 
+func main() {
 	e := echo.New()
 	e.Validator = &CustomValidator{validator: validator.New()}
 	userRoutes := e.Group("/users")
